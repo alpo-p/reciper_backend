@@ -1,19 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ApolloServer, gql } from 'apollo-server';
-import { Resolvers } from './src/types';
-
-type UserAuth = {
-  username: string,
-  password: string
-};
+import { v4 as uuid } from 'uuid';
+import { UserAuth, Resolvers } from './src/types';
 
 
-const users: UserAuth[] = [
+let users: UserAuth[] = [
   {
+    id: '123123',
     username: 'Alpo',
     password: '12345'
   },
   {
+    id: '223123',
     username: 'baloo',
     password: '12345'
   }
@@ -26,14 +24,29 @@ const typeDefs = gql`
   }
 
   type Query {
+    allUsers: [UserAuth]!
     findUser(username: String!): UserAuth
+  }
+
+  type Mutation {
+    addUser(username: String!, password: String!): UserAuth
   }
 `;
 
+const id: string = uuid();
+
 const resolvers: Resolvers = {
   Query: {
-    findUser: (_root: any, args: any) => 
+    allUsers: () => users,
+    findUser: (_root: any, args: { username: string }) => 
       users.find(p => p.username === args.username)
+  },
+  Mutation: {
+    addUser: (_root: any, args: Omit<UserAuth, 'id'>): UserAuth => {
+      const user: UserAuth = { ...args, id: id };
+      users = users.concat(user);
+      return user;
+    }
   }
 };
 

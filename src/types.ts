@@ -11,4 +11,11 @@ type ResolverMap = {
 
 export type Resolvers = {
   Query: ResolverMap;
+  Mutation: ResolverMap;
+};
+
+export type UserAuth = {
+  id: string,
+  username: string,
+  password: string
 };
