@@ -1,32 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { v4 as uuid } from 'uuid';
-import { Resolvers, UserAuth } from '../types';
-const id: string = uuid();
+import { Resolvers, AuthUser, IUser } from '../types';
+import authService from '../utils/authService'; 
 
-let users: UserAuth[] = [
-  {
-    id: '123123',
-    username: 'Alpo',
-    password: '12345'
-  },
-  {
-    id: '223123',
-    username: 'baloo',
-    password: '12345'
-  }
-];
 
 export const resolvers: Resolvers = {
   Query: {
-    allUsers: () => users,
-    findUser: (_root: any, args: { username: string }) => 
-      users.find(p => p.username === args.username)
+    allUsers: () => authService.allUsers(),
+    findUser: (_root: any, args: { username: string }): AuthUser | undefined => 
+      authService.findUser(args)
   },
   Mutation: {
-    addUser: (_root: any, args: Omit<UserAuth, 'id'>): UserAuth => {
-      const user: UserAuth = { ...args, id: id };
-      users = users.concat(user);
-      return user;
-    }
+    addUser: (_root: any, args: Omit<AuthUser, 'id'>): Promise<IUser> => 
+      authService.addUser(args)
   }
 };
