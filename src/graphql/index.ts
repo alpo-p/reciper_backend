@@ -1,4 +1,5 @@
 import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
 
-export { typeDefs, resolvers};
+import { context } from './context';
+export { typeDefs, resolvers, context };
