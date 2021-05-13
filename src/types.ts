@@ -28,6 +28,18 @@ export interface IUser extends Document {
   password: string
 }
 
+export interface IRecipe extends Document {
+  id: string,
+  name: string,
+  preparationTimeInMinutes: number,
+  numberOfServings: number,
+  shortDescription: string,
+  longDescription: string,
+  tags: string[],
+  ingredients: string[],
+  stepByStepDirections: string[]
+}
+
 export type Token = { value: string };
 
 //export type Context = { currentUser: string };

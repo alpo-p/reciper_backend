@@ -37,8 +37,8 @@ class AuthService {
   }
 
   static async deleteUser(args: { id: string }): Promise<boolean> {
-    const a = await MAuthUser.findByIdAndRemove(args.id);
-    console.log(a);
+    const user = await MAuthUser.findByIdAndRemove(args.id);
+    if (user === null) return false;
     return true;
   }
 
