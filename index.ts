@@ -1,20 +1,13 @@
 import { ApolloServer } from 'apollo-server';
+import { launchServer } from './src/utils/launchServer';
+import { connectdb } from './src/utils/connectdb';
 
-import { typeDefs, resolvers, context } from './src/graphql';
+void connectdb();
 
-import { dbconfig } from './src/utils/dbconfig';
+const server: ApolloServer = launchServer();
 
-import dotenv from 'dotenv';
-dotenv.config();
-
-void dbconfig();
-
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context
-});
-
-void server.listen().then(({ url }) => {
+void server.listen({
+  port: 4001
+}).then(({ url }) => {
   console.log(`Server ready at ${url}`);
 });
