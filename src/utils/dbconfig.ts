@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 export const dbconfig = () => {
   const MONGODB_URI = process.env.MONGODB_URI as string;
 
-  console.log('connecting to mongodb');
+  console.log('Connecting to mongodb');
 
   const mongoConfig = { 
     useNewUrlParser: true,
@@ -12,7 +12,6 @@ export const dbconfig = () => {
     useCreateIndex: true
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   mongoose.connect(MONGODB_URI, mongoConfig)
     .then(() => {
       console.log('Monnected to MongoDB');

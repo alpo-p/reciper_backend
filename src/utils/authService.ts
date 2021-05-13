@@ -18,7 +18,7 @@ class AuthService {
 
   static async addUser(args: Omit<AuthUser, 'id'>): Promise<IUser> {
     const saltRounds = 10;
-    // eslint-disable-next-line
+    
     const password: string = await bcrypt.hash(args.password , saltRounds);
 
     const user: IUser = new MAuthUser({
@@ -34,6 +34,12 @@ class AuthService {
       });
     }
     return user;
+  }
+
+  static async deleteUser(args: { id: string }): Promise<boolean> {
+    const a = await MAuthUser.findByIdAndRemove(args.id);
+    console.log(a);
+    return true;
   }
 
   static async login(args: Omit<AuthUser, 'id'>): Promise<Token> {

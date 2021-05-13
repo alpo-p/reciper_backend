@@ -11,9 +11,16 @@ export const context = async ({ req }: { req: AuthorizedRequest}) => {
   //@ts-ignore
   const auth: string | null = req ? req.headers.authorization : null;
   if (auth && auth.toLowerCase().startsWith('bearer ')) {
-    const decodedToken = jwt.verify(
-      auth.substring(7), process.env.JWT_SECRET as Secret 
-    ) as string;
+    
+    let decodedToken: string;
+    try {
+      decodedToken = jwt.verify(
+        auth.substring(7), process.env.JWT_SECRET as Secret 
+      ) as string;
+    } catch(e) {
+      decodedToken = '';
+    }
+
     const currentUser = await AuthService.findUser({ username: decodedToken });
     return { currentUser };
   }

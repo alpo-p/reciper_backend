@@ -3,6 +3,7 @@ import { gql } from 'apollo-server';
 export const typeDefs = gql`
   type AuthUser {
     username: String!
+    password: String!
     id: ID!
   }
 
@@ -18,6 +19,7 @@ export const typeDefs = gql`
 
   type Mutation {
     addUser(username: String!, password: String!): AuthUser
+    deleteUser(id: ID!): Boolean
     login(username: String!, password: String!): Token
   }
 `;
