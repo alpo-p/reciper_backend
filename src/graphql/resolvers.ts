@@ -1,29 +1,35 @@
 import { Resolvers, IUser, Token, IRecipe } from '../types';
-import authService from '../utils/authService'; 
-import recipeService from '../utils/recipeService';
+import AuthService from '../utils/authService'; 
+import RecipeService from '../utils/recipeService';
+import LikeService from '../utils/likeService';
 
 export const resolvers: Resolvers = {
   Query: {
-    allUsers: (): Promise<IUser[]> => authService.allUsers(),
+    allUsers: (): Promise<IUser[]> => AuthService.allUsers(),
     findUser: async (_root: unknown, args: {username: string}): Promise<IUser | null> => 
-      await authService.findUser(args),
+      await AuthService.findUser(args),
     currentUser: (_r,_a, context) => context.currentUser,
 
-    allRecipes: (): Promise<IRecipe[]> => recipeService.allRecipes(),
+    allRecipes: (): Promise<IRecipe[]> => RecipeService.allRecipes(),
     findRecipe: async (_root: unknown, args: {id: string}): Promise<IRecipe | null> => 
-      await recipeService.findRecipeById(args),
+      await RecipeService.findRecipeById(args),
   },
   Mutation: {
     addUser: async (_root: unknown, args: Omit<IUser, 'id'>): Promise<IUser> => 
-      await authService.addUser(args),
+      await AuthService.addUser(args),
     deleteUser: async(_root: unknown, args: { id: string }): Promise<boolean> =>
-      await authService.deleteUser(args),
+      await AuthService.deleteUser(args),
     login: async (_root: unknown, args: Omit<IUser, 'id'>): Promise<Token> => 
-      await authService.login(args),
+      await AuthService.login(args),
     
     addRecipe: async (_root: unknown, args: Omit<IRecipe, 'id'>): Promise<IRecipe> => 
-      await recipeService.addRecipe(args),
+      await RecipeService.addRecipe(args),
     deleteRecipe: async(_root: unknown, args: { id: string }): Promise<boolean> =>
-      await recipeService.deleteRecipe(args),
+      await RecipeService.deleteRecipe(args),
+
+    likeRecipe: async (_root: unknown, args: { userID: string, recipeID: string }): Promise<string> =>
+      await LikeService.like(args),
+    dislikeRecipe: async (_root: unknown, args: { userID: string, recipeID: string }):  Promise<string> =>
+      await LikeService.dislike(args),
   }
 };

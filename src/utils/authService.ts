@@ -23,7 +23,9 @@ class AuthService {
 
     const user: IUser = new User({
       username: args.username,
-      password
+      password,
+      likedRecipes: [],
+      dislikedRecipes: []
     });
 
     try {
@@ -45,20 +47,16 @@ class AuthService {
   static async login(args: Omit<IUser, 'id'>): Promise<Token> {
     const user = await AuthService.findUser(args);
     
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const passCorrect: boolean = user === null
       ? false
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       : await bcrypt.compare(args.password, user.password);
     
     if(!passCorrect) {
-      throw new UserInputError('wrong username or password');
+      throw new UserInputError('Wrong username or password');
     }
 
-    // eslint-disable-next-line
     const token = jwt.sign(args.username, process.env.JWT_SECRET as Secret);
     
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     return { value: token };
   }
 }

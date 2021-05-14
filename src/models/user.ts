@@ -12,7 +12,9 @@ const schema: Schema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-  }
+  },
+  likedRecipes: [{ type: String }],
+  dislikedRecipes: [{ type: String }]
 });
 
 schema.set('toJSON', {

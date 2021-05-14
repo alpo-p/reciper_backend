@@ -1,11 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Document } from 'mongoose';
 
 type ResolverContext = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   models: any,
   currentUser: IUser
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ResolverFn = (root: any, args: any, context: ResolverContext) => any;
 
 type ResolverMap = {
@@ -17,24 +18,20 @@ export type Resolvers = {
   Mutation: ResolverMap;
 };
 
+////
+
 export interface IUser extends Document {
   id: string,
   username: string,
   password: string
-}
-
-export interface UserRecipes {
-  likedRecipes: IRecipe[],
-  dislikedRecipes: IRecipe[]
-}
-
-export interface IUserExtended extends IUser {
-  recipes: UserRecipes
+  likedRecipes: string[],
+  dislikedRecipes: string[]
 }
 
 export interface IRecipe extends Document {
   id: string,
   name: string,
+  pictureUrl: string,
   preparationTimeInMinutes: number,
   numberOfServings: number,
   shortDescription: string,
@@ -44,6 +41,6 @@ export interface IRecipe extends Document {
   stepByStepDirections: string[]
 }
 
-export type Token = { value: string };
+////
 
-//export type Context = { currentUser: string };
+export type Token = { value: string };

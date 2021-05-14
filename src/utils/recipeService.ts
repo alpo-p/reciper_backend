@@ -14,6 +14,7 @@ class RecipeService {
   static async addRecipe(args: Omit<IRecipe, 'id'>): Promise<IRecipe> {
     const { 
       name,
+      pictureUrl,
       preparationTimeInMinutes,
       numberOfServings,
       shortDescription,
@@ -25,6 +26,7 @@ class RecipeService {
 
     const recipe: IRecipe = new Recipe({
       name,
+      pictureUrl,
       preparationTimeInMinutes,
       numberOfServings,
       shortDescription,

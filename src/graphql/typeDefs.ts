@@ -2,9 +2,11 @@ import { gql } from 'apollo-server';
 
 export const typeDefs = gql`
   type User {
+    id: ID!
     username: String!
     password: String!
-    id: ID!
+    likedRecipes: [String]!
+    dislikedRecipes: [String]!
   }
 
   type Token {
@@ -14,6 +16,7 @@ export const typeDefs = gql`
   type Recipe {
     id: ID!
     name: String!
+    pictureUrl: String!
     preparationTimeInMinutes: Int!
     numberOfServings: Int!
     shortDescription: String!
@@ -37,8 +40,12 @@ export const typeDefs = gql`
     deleteUser(id: ID!): Boolean!
     login(username: String!, password: String!): Token
 
+    likeRecipe(userID: ID!, recipeID: ID!): String
+    dislikeRecipe(userID: ID!, recipeID: ID!): String
+
     addRecipe(
       name: String!
+      pictureUrl: String!
       preparationTimeInMinutes: Int!
       numberOfServings: Int!
       shortDescription: String!

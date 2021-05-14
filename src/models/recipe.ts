@@ -6,6 +6,10 @@ const schema: Schema = new mongoose.Schema({
     type: String,
     required: true
   },
+  pictureUrl: {
+    type: String,
+    required: true
+  },
   preparationTimeInMinutes: {
     type: Number,
     required: true
