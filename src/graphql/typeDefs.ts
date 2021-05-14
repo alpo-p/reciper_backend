@@ -42,6 +42,7 @@ export const typeDefs = gql`
 
     likeRecipe(recipeID: ID!): String
     dislikeRecipe(recipeID: ID!): String
+    resetLikesAndDislikes: Boolean
 
     addRecipe(
       name: String!

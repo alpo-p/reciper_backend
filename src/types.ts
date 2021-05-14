@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 
-type ResolverContext = {
+export type ResolverContext = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   models: any,
   currentUser: IUser
