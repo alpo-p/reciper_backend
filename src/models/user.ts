@@ -23,4 +23,4 @@ schema.set('toJSON', {
 });
 
 schema.plugin(uniqueValidator);
-export default mongoose.model<IUser>('MAuthUser', schema);
+export default mongoose.model<IUser>('MUser', schema);

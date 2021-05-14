@@ -22,6 +22,7 @@ class RecipeService {
       ingredients,
       stepByStepDirections
     } = args;
+
     const recipe: IRecipe = new Recipe({
       name,
       preparationTimeInMinutes,

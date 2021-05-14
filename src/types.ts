@@ -23,6 +23,15 @@ export interface IUser extends Document {
   password: string
 }
 
+export interface UserRecipes {
+  likedRecipes: IRecipe[],
+  dislikedRecipes: IRecipe[]
+}
+
+export interface IUserExtended extends IUser {
+  recipes: UserRecipes
+}
+
 export interface IRecipe extends Document {
   id: string,
   name: string,

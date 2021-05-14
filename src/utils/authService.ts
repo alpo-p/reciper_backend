@@ -3,17 +3,17 @@ import jwt, { Secret } from 'jsonwebtoken';
 
 import { IUser, Token } from '../types';
 
-import MAuthUser from '../models/authUser';
+import User from '../models/user';
 import { UserInputError } from 'apollo-server';
 
 
 class AuthService {
   static async allUsers(): Promise<IUser[]> {
-    return await MAuthUser.find({});
+    return await User.find({});
   }
 
   static async findUser(args: { username: string }): Promise<IUser | null> {
-    return await MAuthUser.findOne({ username: args.username });
+    return await User.findOne({ username: args.username });
   }
 
   static async addUser(args: Omit<IUser, 'id'>): Promise<IUser> {
@@ -21,7 +21,7 @@ class AuthService {
     
     const password: string = await bcrypt.hash(args.password , saltRounds);
 
-    const user: IUser = new MAuthUser({
+    const user: IUser = new User({
       username: args.username,
       password
     });
@@ -37,7 +37,7 @@ class AuthService {
   }
 
   static async deleteUser(args: { id: string }): Promise<boolean> {
-    const user = await MAuthUser.findByIdAndRemove(args.id);
+    const user = await User.findByIdAndRemove(args.id);
     if (user === null) return false;
     return true;
   }
