@@ -3,12 +3,12 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
 
-export const connectdb = async () => {
+export const connectToMongoDB = async () => {
   const MONGODB_URI = process.env.NODE_ENV === 'test'
     ? process.env.TEST_MONGODB_URI as string
     : process.env.MONGODB_URI as string;
 
-  console.log('Connecting to mongodb');
+  console.log('Connecting to MongoDB');
 
   const mongoConfig = { 
     useNewUrlParser: true,

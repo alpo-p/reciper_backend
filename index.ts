@@ -1,13 +1,13 @@
 import { ApolloServer } from 'apollo-server';
-import { launchServer } from './src/utils/launchServer';
-import { connectdb } from './src/utils/connectdb';
+import { launchApolloServer } from './src/utils/launchApolloServer';
+import { connectToMongoDB } from './src/utils/connectToMongoDB';
 
-void connectdb();
+void connectToMongoDB();
 
-const server: ApolloServer = launchServer();
+const server: ApolloServer = launchApolloServer();
 
 void server.listen({
-  port: 4001
+  port: 4242
 }).then(({ url }) => {
   console.log(`Server ready at ${url}`);
 });
