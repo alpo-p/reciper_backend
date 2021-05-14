@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 
 type ResolverContext = {
   models: any,
-  currentUser: AuthUser
+  currentUser: IUser
 };
 
 export type ResolverFn = (root: any, args: any, context: ResolverContext) => any;
@@ -17,13 +17,8 @@ export type Resolvers = {
   Mutation: ResolverMap;
 };
 
-export type AuthUser = {
-  id: string,
-  username: string,
-  password: string
-};
-
 export interface IUser extends Document {
+  id: string,
   username: string,
   password: string
 }

@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt, { Secret } from 'jsonwebtoken';
 
-import { AuthUser, IUser, Token } from '../types';
+import { IUser, Token } from '../types';
 
 import MAuthUser from '../models/authUser';
 import { UserInputError } from 'apollo-server';
@@ -16,7 +16,7 @@ class AuthService {
     return await MAuthUser.findOne({ username: args.username });
   }
 
-  static async addUser(args: Omit<AuthUser, 'id'>): Promise<IUser> {
+  static async addUser(args: Omit<IUser, 'id'>): Promise<IUser> {
     const saltRounds = 10;
     
     const password: string = await bcrypt.hash(args.password , saltRounds);
@@ -42,7 +42,7 @@ class AuthService {
     return true;
   }
 
-  static async login(args: Omit<AuthUser, 'id'>): Promise<Token> {
+  static async login(args: Omit<IUser, 'id'>): Promise<Token> {
     const user = await AuthService.findUser(args);
     
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

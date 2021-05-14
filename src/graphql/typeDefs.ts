@@ -1,7 +1,7 @@
 import { gql } from 'apollo-server';
 
 export const typeDefs = gql`
-  type AuthUser {
+  type User {
     username: String!
     password: String!
     id: ID!
@@ -24,16 +24,16 @@ export const typeDefs = gql`
   }
 
   type Query {
-    allUsers: [AuthUser]!
-    findUser(username: String!): AuthUser
-    currentUser: AuthUser
+    allUsers: [User]!
+    findUser(username: String!): User
+    currentUser: User
 
     allRecipes: [Recipe]
     findRecipe(id: String!): Recipe
   }
 
   type Mutation {
-    addUser(username: String!, password: String!): AuthUser
+    addUser(username: String!, password: String!): User
     deleteUser(id: ID!): Boolean!
     login(username: String!, password: String!): Token
 
