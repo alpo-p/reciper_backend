@@ -27,9 +27,9 @@ export const resolvers: Resolvers = {
     deleteRecipe: async(_root: unknown, args: { id: string }): Promise<boolean> =>
       await RecipeService.deleteRecipe(args),
 
-    likeRecipe: async (_root: unknown, args: { userID: string, recipeID: string }): Promise<string> =>
-      await LikeService.like(args),
-    dislikeRecipe: async (_root: unknown, args: { userID: string, recipeID: string }):  Promise<string> =>
-      await LikeService.dislike(args),
+    likeRecipe: async (_root: unknown, args: { recipeID: string }, context): Promise<string> =>
+      await LikeService.like(args, context.currentUser.id),
+    dislikeRecipe: async (_root: unknown, args: { recipeID: string }, context):  Promise<string> =>
+      await LikeService.dislike(args, context.currentUser.id),
   }
 };

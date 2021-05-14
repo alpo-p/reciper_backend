@@ -1,8 +1,8 @@
 import User from "../models/user";
 
 export default class LikeService {
-  static async like(args: { userID: string, recipeID: string}): Promise<string> {
-    const { userID, recipeID } = args;
+  static async like(args: { recipeID: string }, userID: string): Promise<string> {
+    const { recipeID } = args;
 
     try {
       void await User.findOneAndUpdate(
@@ -16,8 +16,8 @@ export default class LikeService {
     return recipeID;
   }
 
-  static async dislike(args: { userID: string, recipeID: string}): Promise<string> {
-    const { userID, recipeID } = args;
+  static async dislike(args: { recipeID: string }, userID: string): Promise<string> {
+    const { recipeID } = args;
 
     try {
       void await User.findOneAndUpdate(

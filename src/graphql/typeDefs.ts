@@ -40,8 +40,8 @@ export const typeDefs = gql`
     deleteUser(id: ID!): Boolean!
     login(username: String!, password: String!): Token
 
-    likeRecipe(userID: ID!, recipeID: ID!): String
-    dislikeRecipe(userID: ID!, recipeID: ID!): String
+    likeRecipe(recipeID: ID!): String
+    dislikeRecipe(recipeID: ID!): String
 
     addRecipe(
       name: String!
