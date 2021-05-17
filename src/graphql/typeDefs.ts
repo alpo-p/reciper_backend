@@ -10,7 +10,7 @@ export const typeDefs = gql`
   }
 
   type Token {
-    value: String!
+    token: String!
   }
 
   type Recipe {
@@ -27,6 +27,8 @@ export const typeDefs = gql`
   }
 
   type Query {
+    ping: Boolean
+
     allUsers: [User]!
     findUser(username: String!): User
     currentUser: User

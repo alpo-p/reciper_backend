@@ -5,7 +5,7 @@ export const launchApolloServer = () => {
   const server: ApolloServer = new ApolloServer({
     typeDefs,
     resolvers,
-    context
+    context,
   });
   return server;
 };

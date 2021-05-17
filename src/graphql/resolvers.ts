@@ -1,4 +1,4 @@
-import { Resolvers, IUser, Token, IRecipe } from '../types';
+import { Resolvers, IUser, Token, IRecipe, ILoginUser } from '../types';
 import AuthService from '../utils/authService'; 
 import RecipeService from '../utils/recipeService';
 import LikeService from '../utils/likeService';
@@ -15,11 +15,11 @@ export const resolvers: Resolvers = {
       await RecipeService.findRecipeById(args),
   },
   Mutation: {
-    addUser: async (_root: unknown, args: Omit<IUser, 'id'>): Promise<IUser> => 
+    addUser: async (_root: unknown, args: ILoginUser): Promise<IUser> => 
       await AuthService.addUser(args),
     deleteUser: async(_root: unknown, args: { id: string }): Promise<boolean> =>
       await AuthService.deleteUser(args),
-    login: async (_root: unknown, args: Omit<IUser, 'id'>): Promise<Token> => 
+    login: async (_root: unknown, args: ILoginUser): Promise<Token> => 
       await AuthService.login(args),
     
     addRecipe: async (_root: unknown, args: Omit<IRecipe, 'id'>): Promise<IRecipe> => 

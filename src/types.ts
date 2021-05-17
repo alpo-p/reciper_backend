@@ -28,6 +28,8 @@ export interface IUser extends Document {
   dislikedRecipes: string[]
 }
 
+export type ILoginUser = Pick<IUser, 'username' | 'password'>;
+
 export interface IRecipe extends Document {
   id: string,
   name: string,
@@ -43,4 +45,4 @@ export interface IRecipe extends Document {
 
 ////
 
-export type Token = { value: string };
+export type Token = { token: string };

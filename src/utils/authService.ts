@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt, { Secret } from 'jsonwebtoken';
 
-import { IUser, Token } from '../types';
+import { ILoginUser, IUser, Token } from '../types';
 
 import User from '../models/user';
 import { UserInputError } from 'apollo-server';
@@ -16,7 +16,7 @@ class AuthService {
     return await User.findOne({ username: args.username });
   }
 
-  static async addUser(args: Omit<IUser, 'id'>): Promise<IUser> {
+  static async addUser(args: ILoginUser): Promise<IUser> {
     const saltRounds = 10;
     
     const password: string = await bcrypt.hash(args.password , saltRounds);
@@ -44,7 +44,7 @@ class AuthService {
     return true;
   }
 
-  static async login(args: Omit<IUser, 'id'>): Promise<Token> {
+  static async login(args: ILoginUser): Promise<Token> {
     const user = await AuthService.findUser(args);
     
     const passCorrect: boolean = user === null
@@ -57,7 +57,7 @@ class AuthService {
 
     const token = jwt.sign(args.username, process.env.JWT_SECRET as Secret);
     
-    return { value: token };
+    return { token: token };
   }
 }
 
