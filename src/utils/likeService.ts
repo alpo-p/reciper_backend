@@ -11,9 +11,9 @@ export default class LikeService {
       throw new AuthenticationError('Not authenticated');
     }
 
-    const currentUser = await User.findById(userID) as IUser;
-
-    const findRecipeInLikedRecipes = (): boolean => {
+    
+    const findRecipeInLikedRecipes = async (): Promise<boolean> => {
+      const currentUser = await User.findById(userID) as IUser;
       const likedRecipes = currentUser.likedRecipes;
       return Boolean(likedRecipes.find(r => r === recipeID));
     }; 
@@ -25,7 +25,7 @@ export default class LikeService {
       );
     };
 
-    if(findRecipeInLikedRecipes()) {
+    if(await findRecipeInLikedRecipes()) {
       void removeRecipeFromLikedRecipes();
       return recipeID;
     }
