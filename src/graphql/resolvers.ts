@@ -29,8 +29,6 @@ export const resolvers: Resolvers = {
 
     likeRecipe: async (_root: unknown, args: { recipeID: string }, context): Promise<string> =>
       await LikeService.like(args, context),
-    dislikeRecipe: async (_root: unknown, args: { recipeID: string }, context):  Promise<string> =>
-      await LikeService.dislike(args, context),
     resetLikesAndDislikes: async (_root: unknown, _args: unknown, context): Promise<boolean> =>
       await LikeService.reset(context)
   }
