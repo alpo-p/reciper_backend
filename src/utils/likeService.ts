@@ -1,6 +1,6 @@
 import { AuthenticationError } from "apollo-server-errors";
 import User from "../models/user";
-import { ResolverContext } from "../types";
+import { IUser, ResolverContext } from "../types";
 
 export default class LikeService {
   static async like(args: { recipeID: string }, context: ResolverContext): Promise<string> {
@@ -9,6 +9,25 @@ export default class LikeService {
     const userID: string = context?.currentUser?.id;
     if (!userID) {
       throw new AuthenticationError('Not authenticated');
+    }
+
+    const currentUser = await User.findById(userID) as IUser;
+
+    const findRecipeInLikedRecipes = (): boolean => {
+      const likedRecipes = currentUser.likedRecipes;
+      return Boolean(likedRecipes.find(r => r === recipeID));
+    }; 
+
+    const removeRecipeFromLikedRecipes = async () => {
+      void await User.updateOne(
+        {_id: userID},
+        { $pull: { "likedRecipes": recipeID } }
+      );
+    };
+
+    if(findRecipeInLikedRecipes()) {
+      void removeRecipeFromLikedRecipes();
+      return recipeID;
     }
 
     try {
