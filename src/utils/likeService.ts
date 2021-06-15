@@ -6,12 +6,11 @@ export default class LikeService {
   static async like(args: { recipeID: string }, context: ResolverContext): Promise<string> {
     const { recipeID } = args;
 
-    const userID: string = context?.currentUser?.id;
+    const userID: string | null = context?.currentUser?.id;
     if (!userID) {
       throw new AuthenticationError('Not authenticated');
     }
 
-    
     const findRecipeInLikedRecipes = async (): Promise<boolean> => {
       const currentUser = await User.findById(userID) as IUser;
       const likedRecipes = currentUser.likedRecipes;
@@ -26,7 +25,7 @@ export default class LikeService {
     };
 
     if(await findRecipeInLikedRecipes()) {
-      void removeRecipeFromLikedRecipes();
+      void await removeRecipeFromLikedRecipes();
       return recipeID;
     }
 
