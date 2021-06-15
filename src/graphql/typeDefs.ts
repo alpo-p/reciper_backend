@@ -33,6 +33,8 @@ export const typeDefs = gql`
     findUser(username: String!): User
     currentUser: User
 
+    likedRecipesByCurrentUser: [Recipe]!
+
     allRecipes: [Recipe]
     findRecipe(id: String!): Recipe
   }

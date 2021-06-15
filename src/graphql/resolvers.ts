@@ -9,6 +9,8 @@ export const resolvers: Resolvers = {
     findUser: async (_root: unknown, args: {username: string}): Promise<IUser | null> => 
       await AuthService.findUser(args),
     currentUser: (_r,_a, context) => context.currentUser,
+    likedRecipesByCurrentUser: (_r_, _a, context): Promise<IRecipe[] | null> => 
+      RecipeService.findLikedRecipesByCurrentUser(context),
 
     allRecipes: (): Promise<IRecipe[]> => RecipeService.allRecipes(),
     findRecipe: async (_root: unknown, args: {id: string}): Promise<IRecipe | null> => 

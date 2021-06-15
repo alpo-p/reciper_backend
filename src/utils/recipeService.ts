@@ -1,6 +1,6 @@
 import { UserInputError } from 'apollo-server';
 import Recipe from '../models/recipe';
-import { IRecipe } from '../types';
+import { IRecipe, IUser } from '../types';
 
 class RecipeService {
   static async allRecipes(): Promise<IRecipe[]> {
@@ -9,6 +9,11 @@ class RecipeService {
 
   static async findRecipeById(args: { id: string }): Promise<IRecipe | null> {
     return await Recipe.findById(args.id);
+  }
+
+  static async findLikedRecipesByCurrentUser({ currentUser }: { currentUser: IUser }): Promise<IRecipe[] | null> {
+    const recipeIDs = currentUser.likedRecipes;
+    return await Recipe.find({ '_id': { $in: recipeIDs } });
   }
 
   static async addRecipe(args: Omit<IRecipe, 'id'>): Promise<IRecipe> {
