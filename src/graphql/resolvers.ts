@@ -12,6 +12,9 @@ export const resolvers: Resolvers = {
     likedRecipesByCurrentUser: (_r_, _a, context): Promise<IRecipe[] | null> => 
       RecipeService.findLikedRecipesByCurrentUser(context),
 
+    isRecipeLikedByCurrentUser: (_r, args: { id: string }, context): boolean =>
+      RecipeService.isRecipeLikedByCurrentUser(args, context),
+
     allRecipes: (): Promise<IRecipe[]> => RecipeService.allRecipes(),
     findRecipe: async (_root: unknown, args: {id: string}): Promise<IRecipe | null> => 
       await RecipeService.findRecipeById(args),

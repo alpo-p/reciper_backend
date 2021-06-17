@@ -16,6 +16,11 @@ class RecipeService {
     return await Recipe.find({ '_id': { $in: recipeIDs } });
   }
 
+  static isRecipeLikedByCurrentUser(args: { id: string }, context: { currentUser: IUser }): boolean {
+    const recipeIDsLikedByCurrentUser = context.currentUser.likedRecipes;
+    return Boolean(recipeIDsLikedByCurrentUser.find(id => id === args.id));
+  }
+
   static async addRecipe(args: Omit<IRecipe, 'id'>): Promise<IRecipe> {
     const { 
       name,

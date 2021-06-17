@@ -34,6 +34,7 @@ export const typeDefs = gql`
     currentUser: User
 
     likedRecipesByCurrentUser: [Recipe]!
+    isRecipeLikedByCurrentUser(id: ID!): Boolean!
 
     allRecipes: [Recipe]
     findRecipe(id: String!): Recipe
