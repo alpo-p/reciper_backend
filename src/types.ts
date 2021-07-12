@@ -25,7 +25,6 @@ export interface IUser extends Document {
   username: string,
   password: string
   likedRecipes: string[],
-  dislikedRecipes: string[]
 }
 
 export type ILoginUser = Pick<IUser, 'username' | 'password'>;
@@ -36,7 +35,6 @@ export interface IRecipe extends Document {
   pictureUrl: string,
   preparationTimeInMinutes: number,
   numberOfServings: number,
-  shortDescription: string,
   longDescription: string,
   tags: string[],
   ingredients: string[],

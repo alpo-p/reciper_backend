@@ -6,7 +6,6 @@ export const typeDefs = gql`
     username: String!
     password: String!
     likedRecipes: [String]!
-    dislikedRecipes: [String]!
   }
 
   type Token {
@@ -19,7 +18,6 @@ export const typeDefs = gql`
     pictureUrl: String!
     preparationTimeInMinutes: Int!
     numberOfServings: Int!
-    shortDescription: String!
     longDescription: String!
     tags: [String!]!
     ingredients: [String!]!
@@ -54,7 +52,6 @@ export const typeDefs = gql`
       pictureUrl: String!
       preparationTimeInMinutes: Int!
       numberOfServings: Int!
-      shortDescription: String!
       longDescription: String!
       tags: [String!]!
       ingredients: [String!]!
