@@ -17,14 +17,10 @@ class RecipeService {
   }
 
   static async findRecipesAddedByCurrentUser(context: ResolverContext): Promise<IRecipe[] | null> {
-    console.log("tääl");
     const addedByUserId : string | null = context?.currentUser?.id;
     if (!addedByUserId) {
       throw new AuthenticationError('Not authenticated');
     }
-
-    console.log(addedByUserId);
-    
 
     return await Recipe.find({ addedByUserId });
   } 
