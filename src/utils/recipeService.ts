@@ -1,6 +1,6 @@
-import { UserInputError } from 'apollo-server';
+import { AuthenticationError, UserInputError } from 'apollo-server';
 import Recipe from '../models/recipe';
-import { IRecipe, IUser } from '../types';
+import { IRecipe, IUser, ResolverContext } from '../types';
 
 class RecipeService {
   static async allRecipes(): Promise<IRecipe[]> {
@@ -21,7 +21,7 @@ class RecipeService {
     return Boolean(recipeIDsLikedByCurrentUser.find(id => id === args.id));
   }
 
-  static async addRecipe(args: Omit<IRecipe, 'id'>): Promise<IRecipe> {
+  static async addRecipe(args: Omit<IRecipe, 'id' | 'addedByUserId'>, context: ResolverContext): Promise<IRecipe> {
     const { 
       name,
       pictureUrl,
@@ -30,8 +30,17 @@ class RecipeService {
       longDescription,
       tags,
       ingredients,
-      stepByStepDirections
+      stepByStepDirections,
     } = args;
+
+    
+    const addedByUserId : string | null = context?.currentUser?.id;
+    if (!addedByUserId) {
+      throw new AuthenticationError('Not authenticated');
+    }
+
+    console.log(addedByUserId);
+    
 
     const recipe: IRecipe = new Recipe({
       name,
@@ -41,8 +50,12 @@ class RecipeService {
       longDescription,
       tags,
       ingredients,
-      stepByStepDirections
+      stepByStepDirections,
+      addedByUserId
     });
+
+    console.log(recipe);
+    
     
     try {
       await recipe.save();

@@ -22,6 +22,7 @@ export const typeDefs = gql`
     tags: [String!]!
     ingredients: [String!]!
     stepByStepDirections: [String!]!
+    addedByUserId: ID 
   }
 
   type Query {

@@ -27,8 +27,8 @@ export const resolvers: Resolvers = {
     login: async (_root: unknown, args: ILoginUser): Promise<Token> => 
       await AuthService.login(args),
     
-    addRecipe: async (_root: unknown, args: Omit<IRecipe, 'id'>): Promise<IRecipe> => 
-      await RecipeService.addRecipe(args),
+    addRecipe: async (_root: unknown, args: Omit<IRecipe, 'id' | 'addedByUserId'>, context): Promise<IRecipe> => 
+      await RecipeService.addRecipe(args, context),
     deleteRecipe: async(_root: unknown, args: { id: string }): Promise<boolean> =>
       await RecipeService.deleteRecipe(args),
 

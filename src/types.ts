@@ -38,7 +38,8 @@ export interface IRecipe extends Document {
   longDescription: string,
   tags: string[],
   ingredients: string[],
-  stepByStepDirections: string[]
+  stepByStepDirections: string[],
+  addedByUserId: string 
 }
 
 ////

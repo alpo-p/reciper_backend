@@ -25,7 +25,8 @@ const schema: Schema = new mongoose.Schema({
   },
   tags: [{ type: String }],
   ingredients: [{ type: String }],
-  stepByStepDirections: [{ type: String }]
+  stepByStepDirections: [{ type: String }],
+  addedByUserId: String
 });
 
 export default mongoose.model<IRecipe>('Recipe', schema);
