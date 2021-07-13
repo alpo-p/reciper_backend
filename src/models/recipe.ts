@@ -18,11 +18,6 @@ const schema: Schema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  shortDescription: {
-    type: String,
-    required: true,
-    maxlength: 50,
-  },
   longDescription: {
     type: String,
     required: true,

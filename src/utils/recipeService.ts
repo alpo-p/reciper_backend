@@ -27,7 +27,6 @@ class RecipeService {
       pictureUrl,
       preparationTimeInMinutes,
       numberOfServings,
-      shortDescription,
       longDescription,
       tags,
       ingredients,
@@ -39,13 +38,12 @@ class RecipeService {
       pictureUrl,
       preparationTimeInMinutes,
       numberOfServings,
-      shortDescription,
       longDescription,
       tags,
       ingredients,
       stepByStepDirections
     });
-
+    
     try {
       await recipe.save();
     } catch (e) {
