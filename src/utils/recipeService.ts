@@ -16,6 +16,19 @@ class RecipeService {
     return await Recipe.find({ '_id': { $in: recipeIDs } });
   }
 
+  static async findRecipesAddedByCurrentUser(context: ResolverContext): Promise<IRecipe[] | null> {
+    console.log("tääl");
+    const addedByUserId : string | null = context?.currentUser?.id;
+    if (!addedByUserId) {
+      throw new AuthenticationError('Not authenticated');
+    }
+
+    console.log(addedByUserId);
+    
+
+    return await Recipe.find({ addedByUserId });
+  } 
+
   static isRecipeLikedByCurrentUser(args: { id: string }, context: { currentUser: IUser }): boolean {
     const recipeIDsLikedByCurrentUser = context.currentUser.likedRecipes;
     return Boolean(recipeIDsLikedByCurrentUser.find(id => id === args.id));
@@ -39,9 +52,6 @@ class RecipeService {
       throw new AuthenticationError('Not authenticated');
     }
 
-    console.log(addedByUserId);
-    
-
     const recipe: IRecipe = new Recipe({
       name,
       pictureUrl,
@@ -54,9 +64,6 @@ class RecipeService {
       addedByUserId
     });
 
-    console.log(recipe);
-    
-    
     try {
       await recipe.save();
     } catch (e) {

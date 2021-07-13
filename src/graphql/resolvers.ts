@@ -18,6 +18,8 @@ export const resolvers: Resolvers = {
     allRecipes: (): Promise<IRecipe[]> => RecipeService.allRecipes(),
     findRecipe: async (_root: unknown, args: {id: string}): Promise<IRecipe | null> => 
       await RecipeService.findRecipeById(args),
+    recipesAddedByCurrentUser: (_r, _a, context): Promise<IRecipe[] | null> =>
+      RecipeService.findRecipesAddedByCurrentUser(context),
   },
   Mutation: {
     addUser: async (_root: unknown, args: ILoginUser): Promise<IUser> => 

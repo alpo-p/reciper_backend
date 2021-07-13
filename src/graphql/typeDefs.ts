@@ -37,6 +37,7 @@ export const typeDefs = gql`
 
     allRecipes: [Recipe]
     findRecipe(id: String!): Recipe
+    recipesAddedByCurrentUser: [Recipe]
   }
 
   type Mutation {
