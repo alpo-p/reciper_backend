@@ -6,8 +6,13 @@ void connectToMongoDB();
 
 const server: ApolloServer = launchApolloServer();
 
+let port: number | string | undefined = process.env.PORT;
+if (port == null || port == "") {
+  port = 4242;
+}
+
 void server.listen({
-  port: 4242
+  port
 }).then(({ url }) => {
   console.log(`Server ready at ${url}`);
 });
